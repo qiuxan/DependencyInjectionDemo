@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped<IDemoService, DemoService>();
+builder.Services.AddSingleton<IDemoService, DemoService>();
 
 builder.Services.AddScoped<IPostService, PostsService>();
 

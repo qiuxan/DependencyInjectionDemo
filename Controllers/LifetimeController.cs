@@ -8,14 +8,14 @@ namespace DependencyInjectionDemo.Controllers;
 public class LifetimeController : ControllerBase
 {
     private readonly IScopedService _scopedService;
-    //private readonly ITransientService _transientService;
+    private readonly ITransientService _transientService;
     private readonly ISingletonService _singletonService;
 
     public LifetimeController(IScopedService scopedService, ITransientService transientService,
         ISingletonService singletonService)
     {
         _scopedService = scopedService;
-        //_transientService = transientService;
+        _transientService = transientService;
         _singletonService = singletonService;
     }
 
@@ -23,7 +23,7 @@ public class LifetimeController : ControllerBase
     public ActionResult Get([FromServices] ITransientService transientService)
     {
         var scopedServiceMessage = _scopedService.SayHello();
-        var transientServiceMessage = transientService.SayHello();
+        var transientServiceMessage = _transientService.SayHello();
         var singletonServiceMessage = _singletonService.SayHello();
         return Content(
             $"{scopedServiceMessage}{Environment.NewLine}{transientServiceMessage}{Environment.NewLine}{singletonServiceMessage}");
